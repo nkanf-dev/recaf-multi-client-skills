@@ -45,7 +45,17 @@ if [ ! -f /tmp/hello-recaf-patched.jar ]; then
   exit 1
 fi
 
-"$JAVA_BIN" -cp "$TMP_DIR/hello-recaf.jar" HelloRecaf >/dev/null
-"$JAVA_BIN" -cp /tmp/hello-recaf-patched.jar HelloRecaf >/dev/null
+ORIGINAL_OUT="$("$JAVA_BIN" -cp "$TMP_DIR/hello-recaf.jar" HelloRecaf)"
+PATCHED_OUT="$("$JAVA_BIN" -cp /tmp/hello-recaf-patched.jar HelloRecaf)"
+
+if [ "$ORIGINAL_OUT" != "recaf-smoke" ]; then
+  echo "unexpected original output: $ORIGINAL_OUT" >&2
+  exit 1
+fi
+
+if [ "$PATCHED_OUT" != "patched-by-recaf" ]; then
+  echo "unexpected patched output: $PATCHED_OUT" >&2
+  exit 1
+fi
 
 echo "Recaf verification passed"

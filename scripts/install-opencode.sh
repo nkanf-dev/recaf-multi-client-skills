@@ -10,3 +10,13 @@ for skill in recaf-cli recaf-script-authoring recaf-patching; do
 done
 
 echo "Installed Recaf skills into $TARGET"
+echo
+echo "For OpenCode, add this path under skills.paths in ~/.config/opencode/opencode.jsonc:"
+echo "\"$TARGET\""
+echo
+echo "Example:"
+echo '{'
+echo '  "skills": {'
+echo "    \"paths\": [\"$TARGET\"]"
+echo '  }'
+echo '}'
