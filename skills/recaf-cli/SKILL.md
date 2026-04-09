@@ -25,7 +25,7 @@ recaf-nightly -h -i /path/to/app.jar -s /path/to/script.java
 
 `recaf-nightly --help` is not a reliable entry point on the validated nightly. The current launch path parses args but does not short-circuit on help flags.
 
-If `recaf-nightly` is not found, verify that `/Users/nkanf/bin` is on `PATH` or call the launcher explicitly via `/Users/nkanf/bin/recaf-nightly`.
+If `recaf-nightly` is not found, verify that your launcher directory is on `PATH` or call the launcher via its absolute path.
 
 ## Workflow
 
