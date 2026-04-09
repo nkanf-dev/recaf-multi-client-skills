@@ -28,6 +28,8 @@ log.info("primary classes = {}", workspace.getPrimaryResource().getJvmClassBundl
 - Catch checked exceptions explicitly.
 - Prefer small scripts with one responsibility.
 - Keep imports minimal and only add what the script actually uses.
+- When a script writes files or creates directories, wrap that file I/O in `try/catch` too.
+- For large reverse-engineering tasks, prefer scripts that dump artifacts to files over scripts that only log to stdout.
 
 ## Good Example
 
@@ -50,6 +52,15 @@ try {
 - Compile errors should be handled by reading Recaf diagnostics, not by guessing.
 - Runtime errors surface as stack traces from the generated script class.
 - A script string that literally contains `public class Foo` can be misclassified as a full class script. If you need to embed source text, split the literal or read it from a file.
+- File helpers such as `Files.createDirectories(...)` and `Files.writeString(...)` still need checked-exception handling inside snippet scripts.
+- Long decompilation output is easier to work with when written to `/tmp/...` and grepped afterward than when logged directly.
+
+## Reverse-Engineering Notes
+
+- For large artifacts, build a script that decompiles a targeted class list to files.
+- Keep the class list explicit and small enough to reason about.
+- After dumping, use external tools such as `rg` to trace references and option flow across the decompiled sources.
+- Use Recaf for controlled extraction and backend-aware decompilation, not for every downstream analysis step.
 
 ## When Not to Use
 
